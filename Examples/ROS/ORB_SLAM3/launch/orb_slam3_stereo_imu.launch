@@ -1,0 +1,17 @@
+<!-- Note: Using ORB_SLAM3 with ROS makes the whole process much more buggy and slow ... -->
+<launch>
+  <arg name="params_path" value="/home/marc/agrobot_VO/tools/ORB_SLAM3/agrobot_stereo_rect_config.yaml"/>
+  <arg name="vocab_path" value="/home/marc/libraries/ORB_SLAM3/Vocabulary/ORBvoc.txt"/>
+  <arg name="do_rectify" value="true"/>
+
+  <node pkg="ORB_SLAM3" type="Stereo_Inertial" name="stereo_imu_orbslam3" output="screen" args="$(arg vocab_path) $(arg params_path) $(arg do_rectify)">
+
+     <!-- Placeholder for output topic remapping -->
+    <!-- <remap from="/camera/left/image_raw" to="/camera_array/cam_left/image_rect"/> -->
+    <!-- <remap from="/camera/right/image_raw" to="/camera_array/cam_right/image_rect"/> -->
+    <remap from="/camera/left/image_raw" to="/camera_array/left/image_raw"/>
+    <remap from="/camera/right/image_raw" to="/camera_array/right/image_raw"/>
+    <remap from="/imu" to="/gx5/nav/filtered_imu/data"/>
+   
+  </node>
+</launch>
